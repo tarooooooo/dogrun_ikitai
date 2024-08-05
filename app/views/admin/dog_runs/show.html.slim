@@ -1,0 +1,6 @@
+p = @dog_run.name
+p = @dog_run.description
+
+= link_to 'Edit', edit_admin_dog_run_path(@dog_run), class: 'btn btn-primary'
+= link_to 'Destroy', admin_dog_run_path(@dog_run), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-primary'
+= link_to 'Back', admin_dog_runs_path, class: 'btn btn-primary'

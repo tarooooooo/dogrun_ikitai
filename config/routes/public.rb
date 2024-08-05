@@ -1,3 +1,3 @@
 scope module: :public do
-  resources :entries, only: [:show, :create, :new]
+  resources :dog_runs, only: [:index, :show]
 end

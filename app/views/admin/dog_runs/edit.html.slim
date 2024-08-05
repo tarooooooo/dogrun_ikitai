@@ -1,0 +1,12 @@
+= form_with model: @dog_run, url: admin_dog_run_path(@dog_run), method: :patch do |f|
+  .form-group
+    = f.label :name, "名前"
+    = f.text_field :name, class: "form-control"
+  p.small.text-danger= @dog_run.errors.full_messages_for(:name).first
+  .form-group
+      = f.label :description, "説明"
+      = f.text_area :description, class: "form-control"
+  p.small.text-danger= @dog_run.errors.full_messages_for(:description).first
+  = f.submit "更新", class: "btn btn-primary"
+
+= link_to "一覧に戻る", admin_dog_runs_path, class: "btn btn-secondary"

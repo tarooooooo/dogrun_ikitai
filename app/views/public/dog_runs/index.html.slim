@@ -1,0 +1,6 @@
+h1 ドッグラン一覧
+
+- @dog_runs.each do |dog_run|
+  p = dog_run.name
+  p = dog_run.description
+  = link_to 'Show', dog_run_path(dog_run), class: 'btn btn-primary'
