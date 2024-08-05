@@ -1,0 +1,7 @@
+ja:
+  enums:
+    dog:
+      gender:
+        other: その他
+        male: 男の子
+        female: 女の子

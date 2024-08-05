@@ -1,0 +1,8 @@
+h1 一覧
+
+- @dogs.each do |dog|
+  p = dog.name
+  p = dog.breed.name
+  p = dog.birth_day
+  p = dog.gender_i18n
+  = link_to 'Show', dog_path(dog), class: 'btn btn-primary'

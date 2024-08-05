@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dog: one
+  user: one
+  dog_run: one
+  starts_at: 
+  ends_at: 
+  is_currently_staying: false
+
+two:
+  dog: two
+  user: two
+  dog_run: two
+  starts_at: 
+  ends_at: 
+  is_currently_staying: false
