@@ -1,0 +1,9 @@
+h1 詳細
+
+p = @dog.name
+p = @dog.breed.name
+p = @dog.birth_day
+p = @dog.gender_i18n
+
+= link_to '一覧に戻る', dogs_path, class: 'btn btn-secondary'
+= link_to '編集', edit_dog_path(@dog), class: 'btn btn-primary'

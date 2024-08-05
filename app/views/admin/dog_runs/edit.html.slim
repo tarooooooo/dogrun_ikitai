@@ -4,8 +4,8 @@
     = f.text_field :name, class: "form-control"
   p.small.text-danger= @dog_run.errors.full_messages_for(:name).first
   .form-group
-      = f.label :description, "説明"
-      = f.text_area :description, class: "form-control"
+    = f.label :description, "説明"
+    = f.text_area :description, class: "form-control"
   p.small.text-danger= @dog_run.errors.full_messages_for(:description).first
   = f.submit "更新", class: "btn btn-primary"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_03_060410) do
+ActiveRecord::Schema.define(version: 2024_08_05_041317) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 2024_08_03_060410) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "breeds", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "dog_runs", force: :cascade do |t|
     t.integer "admin_id", null: false
     t.string "name", null: false
@@ -59,6 +65,32 @@ ActiveRecord::Schema.define(version: 2024_08_03_060410) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["admin_id"], name: "index_dog_runs_on_admin_id"
+  end
+
+  create_table "dogs", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "breed_id", null: false
+    t.string "name", null: false
+    t.date "birth_day", null: false
+    t.integer "gender", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["breed_id"], name: "index_dogs_on_breed_id"
+    t.index ["user_id"], name: "index_dogs_on_user_id"
+  end
+
+  create_table "stay_periods", force: :cascade do |t|
+    t.integer "dog_id", null: false
+    t.integer "user_id", null: false
+    t.integer "dog_run_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at"
+    t.boolean "is_currently_staying", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dog_id"], name: "index_stay_periods_on_dog_id"
+    t.index ["dog_run_id"], name: "index_stay_periods_on_dog_run_id"
+    t.index ["user_id"], name: "index_stay_periods_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,4 +109,9 @@ ActiveRecord::Schema.define(version: 2024_08_03_060410) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "dog_runs", "admins"
+  add_foreign_key "dogs", "breeds"
+  add_foreign_key "dogs", "users"
+  add_foreign_key "stay_periods", "dog_runs"
+  add_foreign_key "stay_periods", "dogs"
+  add_foreign_key "stay_periods", "users"
 end
