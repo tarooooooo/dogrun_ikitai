@@ -1,3 +1,3 @@
 namespace :admin do
-  resources :questions
+  resources :dog_runs
 end

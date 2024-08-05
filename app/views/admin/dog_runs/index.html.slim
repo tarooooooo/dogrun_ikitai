@@ -1,0 +1,9 @@
+- @dog_runs.each do |dog_run|
+  .card
+    .card-body
+      h5.card-title = dog_run.name
+      p.card-text = dog_run.description
+      p
+        = link_to 'Show', admin_dog_run_path(dog_run), class: 'btn btn-primary'
+
+= link_to 'New DogRun', new_admin_dog_run_path, class: 'btn btn-primary'

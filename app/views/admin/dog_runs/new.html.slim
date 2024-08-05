@@ -1,0 +1,49 @@
+= form_with model: @dog_run_form, url: admin_dog_runs_path, method: :post do |f|
+  #dog_runs
+    - @dog_run_form.dog_runs.each do |dog_run|
+      = f.fields_for :dog_runs, index: nil do |dog_run_form|
+        div.border-bottom.dog_run_form
+          p.py-2
+            = dog_run_form.text_field :name, value: dog_run.name, placeholder: "施設名", class: "form-control"
+            span.small.text-danger= dog_run.errors.full_messages_for(:name).first
+          p.py-2
+            = dog_run_form.text_area :description, value: dog_run.description, placeholder: "施設説明", class: "form-control"
+            span.small.text-danger= dog_run.errors.full_messages_for(:description).first
+          = button_tag type: "button", onClick: "removeRow(this)", class: "btn"
+            = '削除'
+
+  = button_tag type: "button", onClick: "addRow()", class: "btn"
+    = '追加'
+  = f.submit 'Create', class: 'btn btn-primary'
+
+javascript:
+  const newDogRunForm = `
+      <div class="border-bottom dog_run_form">
+        <p class="py-2">
+          <input placeholder="施設名" class="form-control" type="text" name="admin_dog_run_registrations_form[dog_runs][][name]" id="admin_dog_run_registrations_form_dog_runs__name">
+          <span class="small text-danger"></span>
+        </p>
+        <p class="py-2">
+          <textarea placeholder="施設説明" class="form-control" name="admin_dog_run_registrations_form[dog_runs][][description]" id="admin_dog_run_registrations_form_dog_runs__description"></textarea>
+          <span class="small text-danger"></span>
+        </p>
+        <p class="py-2">
+          <button type="button" onClick="removeRow(this)" class="btn btn-danger">削除</button>
+        </p>
+      </div>
+    `;
+  const addRow = () => {
+    var dog_runList = document.getElementById("dog_runs");
+    dog_runList.insertAdjacentHTML('beforeend', newDogRunForm);
+  };
+
+  const removeRow = (element) => {
+      const form_length = document.querySelectorAll("div.dog_run_form").length;
+
+      if (form_length === 1) {
+          return;
+      } else {
+          const parentForm = element.closest('.dog_run_form');
+          parentForm.remove();
+      }
+  };
