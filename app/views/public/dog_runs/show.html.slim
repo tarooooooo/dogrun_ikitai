@@ -3,11 +3,13 @@
 - if flash[:notice]
   .notice= flash[:notice]
 
+= render 'public/shared/error_messages', object: @stay_periods_form
+
 p = @dog_run.name
 p = @dog_run.description
 
-= form_with model: [@dog_run, @stay_period], method: :post do |f|
-  = f.collection_check_boxes :dog_id, @dogs, :id, :name do |b|
+= form_with model: @stay_periods_form, url: dog_run_stay_periods_path(@dog_run), method: :post do |f|
+  = f.collection_check_boxes :dog_ids, @dogs, :id, :name do |b|
     = b.check_box
     = b.label do
       = b.object.name

@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2024_08_05_041317) do
     t.integer "dog_run_id", null: false
     t.datetime "starts_at", null: false
     t.datetime "ends_at"
-    t.boolean "is_currently_staying", default: false, null: false
+    t.boolean "is_currently_staying", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["dog_id"], name: "index_stay_periods_on_dog_id"

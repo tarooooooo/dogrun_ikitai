@@ -1,19 +1,18 @@
 class Public::StayPeriodsController < ApplicationController
   def create
-    # TODO: ここをリファクタリングする
     @dog_run = DogRun.find(params[:dog_run_id])
-    @dogs = current_user.dogs.where(id: stay_period_params[:dog_id])
-    currently_stay_periods = current_user.stay_periods.where(dog_id: @dogs.ids, is_currently_staying: true)
-    if currently_stay_periods.present?
-      currently_dog_names = Dog.where(id: currently_stay_periods.pluck(:dog_id)).pluck(:name).join(',')
-      redirect_to dog_run_path(@dog_run), alert: "「#{currently_dog_names}」は、既に滞在中です。" and return
-    end
+    @dogs = current_user.dogs
+    @stay_periods_form = Public::StayPeriodsRegistrationsForm.new(
+      stay_periods_params: stay_period_params,
+      user: current_user,
+      dog_run: @dog_run,
+    )
 
-    @dogs.each do |dog|
-      current_user.stay_periods.create(dog: dog, dog_run: @dog_run, is_currently_staying: true, starts_at: Time.current)
+    if @stay_periods_form.save!
+      redirect_to dog_run_path(@dog_run), notice: 'チェックインしました。'
+    else
+      render 'public/dog_runs/show'
     end
-
-    redirect_to dog_run_path(@dog_run), notice: 'チェックインしました。'
   end
 
   def update
@@ -27,6 +26,6 @@ class Public::StayPeriodsController < ApplicationController
 
   private
   def stay_period_params
-    params.require(:stay_period).permit(:start_at, :end_at, dog_id: [])
+    params.require(:public_stay_periods_registrations_form).permit(:start_at, :end_at, dog_ids: [])
   end
 end
