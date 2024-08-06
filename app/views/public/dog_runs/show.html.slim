@@ -1,2 +1,22 @@
+- if flash[:alert]
+  .alert= flash[:alert]
+- if flash[:notice]
+  .notice= flash[:notice]
+
+= render 'public/shared/error_messages', object: @stay_periods_form
+
 p = @dog_run.name
 p = @dog_run.description
+
+= form_with model: @stay_periods_form, url: dog_run_stay_periods_path(@dog_run), method: :post do |f|
+  = f.collection_check_boxes :dog_ids, @dogs, :id, :name do |b|
+    = b.check_box
+    = b.label do
+      = b.object.name
+  = f.submit 'チェックイン', class: 'btn btn-primary'
+
+
+p 現在遊んでいるわんちゃん
+- @dog_run.currenty_dogs.each do |dog|
+  p = dog.name
+  p = dog.breed.name

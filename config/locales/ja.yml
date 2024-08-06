@@ -5,3 +5,7 @@ ja:
         other: その他
         male: 男の子
         female: 女の子
+  activerecord:
+  errors:
+    messages:
+      record_invalid: "バリデーションに失敗しました: %{errors}"
