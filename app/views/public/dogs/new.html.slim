@@ -4,6 +4,9 @@
       = f.fields_for :dogs, index: index do |dog_form|
         div.border-bottom.dog_form
           .form-group
+            = dog_form.label :image, "画像"
+            = dog_form.file_field :image, class: "form-control"
+          .form-group
             = dog_form.label :name, "名前"
             = dog_form.text_field :name, class: "form-control"
           p.small.text-danger= dog.errors.full_messages_for(:name).first
@@ -19,11 +22,13 @@
             = dog_form.label :gender
             = dog_form.collection_radio_buttons :gender, @genders, :first, :last, item_wrapper_class: "form-check", input_html: { name: "dog_form[dogs][#{index}][gender]" }
             p.small.text-danger= dog.errors.full_messages_for(:gender).first
+          = button_tag type: "button", onClick: "removeRow(this)", class: "btn"
+            = '削除'
   = button_tag type: "button", onClick: "addRow()", class: "btn"
     = '追加'
   = f.submit "更新", class: "btn btn-primary"
 
-= link_to "一覧に戻る", admin_dog_runs_path, class: "btn btn-secondary"
+= link_to "一覧に戻る", dog_runs_path, class: "btn btn-secondary"
 
 javascript:
     const genders = gon.genders;
@@ -31,6 +36,12 @@ javascript:
 
     const newDogForm = (index) => `
       <div class="border-bottom dog_form">
+        <div class="form-group">
+          <label for="public_dogs_registrations_form_dogs_${index}_image">
+            画像
+          </label>
+          <input class="form-control" type="file" name="public_dogs_registrations_form[dogs][${index}][image]" id="public_dogs_registrations_form_dogs_${index}_image">
+        </div>
         <div class="form-group">
           <label for="dog_name_${index}">名前</label>
           <input class="form-control" type="text" name="public_dogs_registrations_form[dogs][${index}][name]" id="dog_name_${index}">
@@ -52,6 +63,9 @@ javascript:
             <label for="dog_gender_${index}_${key}">${value}</label>
           `).join('')}
         </div>
+        <p class="py-2">
+          <button type="button" onClick="removeRow(this)" class="btn btn-danger">削除</button>
+        </p>
       </div>
     `;
 

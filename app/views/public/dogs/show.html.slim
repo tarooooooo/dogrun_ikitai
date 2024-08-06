@@ -1,5 +1,6 @@
 h1 詳細
 
+= image_tag @dog.image.variant(resize_to_limit: [100, 100])
 p = @dog.name
 p = @dog.breed.name
 p = @dog.birth_day

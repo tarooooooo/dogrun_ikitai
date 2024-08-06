@@ -15,8 +15,9 @@ p = @dog_run.description
       = b.object.name
   = f.submit 'チェックイン', class: 'btn btn-primary'
 
-
-p 現在遊んでいるわんちゃん
+p 現在遊んでいるわんちゃん（ 合計 #{@dog_run.currenty_dogs.count} 匹 ）
 - @dog_run.currenty_dogs.each do |dog|
+  p = image_tag dog.image.variant(resize_to_limit: [100, 100])
   p = dog.name
   p = dog.breed.name
+  = link_to 'チェックアウト', stay_period_ends_ats_path(dog.currently_stay_period), method: :patch, data: { confirm: '本当にチェックアウトしますか？' }, class: 'btn btn-primary'
