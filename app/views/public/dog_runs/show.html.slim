@@ -1,2 +1,20 @@
+- if flash[:alert]
+  .alert= flash[:alert]
+- if flash[:notice]
+  .notice= flash[:notice]
+
 p = @dog_run.name
 p = @dog_run.description
+
+= form_with model: [@dog_run, @stay_period], method: :post do |f|
+  = f.collection_check_boxes :dog_id, @dogs, :id, :name do |b|
+    = b.check_box
+    = b.label do
+      = b.object.name
+  = f.submit 'チェックイン', class: 'btn btn-primary'
+
+
+p 現在遊んでいるわんちゃん
+- @dog_run.currenty_dogs.each do |dog|
+  p = dog.name
+  p = dog.breed.name

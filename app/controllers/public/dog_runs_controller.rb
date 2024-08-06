@@ -5,7 +5,10 @@ class Public::DogRunsController < ApplicationController
     @dog_runs = DogRun.all
   end
 
-  def show; end
+  def show
+    @dogs = current_user.dogs
+    @stay_period = current_user.stay_periods.new
+  end
 
   private
   def set_dog_run
