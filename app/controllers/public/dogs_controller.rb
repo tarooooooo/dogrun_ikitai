@@ -5,8 +5,8 @@ class Public::DogsController < ApplicationController
   def new
     @dog_form = Public::DogsRegistrationsForm.new
     @breeds = Breed.all
-    gon.breeds = @breeds
     @genders = Dog.genders_i18n
+    gon.breeds = @breeds
     gon.genders = @genders
   end
 
