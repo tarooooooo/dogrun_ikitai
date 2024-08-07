@@ -5,8 +5,8 @@ class Public::DogsController < ApplicationController
   def new
     @dog_form = Public::DogsRegistrationsForm.new
     @breeds = Breed.all
-    gon.breeds = @breeds
     @genders = Dog.genders_i18n
+    gon.breeds = @breeds
     gon.genders = @genders
   end
 
@@ -44,11 +44,11 @@ class Public::DogsController < ApplicationController
   private
 
   def dogs_params
-    params.require(:public_dogs_registrations_form).permit(dogs: [:name, :breed_id, :birth_day, :gender])
+    params.require(:public_dogs_registrations_form).permit(dogs: [:name, :breed_id, :birth_day, :gender, :image])
   end
 
   def dog_params
-    params.require(:dog).permit(:name, :breed_id, :birth_day, :gender)
+    params.require(:dog).permit(:name, :breed_id, :birth_day, :gender, :image)
   end
 
   def set_dog

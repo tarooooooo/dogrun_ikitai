@@ -76,3 +76,4 @@ gem "aws-sdk-s3", require: false
 
 gem 'enum_help'
 gem 'gon'
+gem "image_processing", "~> 1.2"

@@ -3,4 +3,8 @@ scope module: :public do
     resources :stay_periods, only: [:create, :update]
   end
   resources :dogs
+
+  resources :stay_periods do
+    resource :ends_ats, only: [:update], module: :stay_periods
+  end
 end

@@ -8,6 +8,7 @@ class Public::StayPeriodsRegistrationsForm
 
   validate :all_stay_periods_must_be_valid
   validate :validate_currentry_stay_period
+  validate :validate_empty_dog_ids
 
   def save!
     return false unless valid?
@@ -53,5 +54,9 @@ class Public::StayPeriodsRegistrationsForm
       currently_dog_names = Dog.where(id: currently_stay_periods.pluck(:dog_id)).pluck(:name).join(',')
       errors.add(:base, "「#{currently_dog_names}」は、既に滞在中です。")
     end
+  end
+
+  def validate_empty_dog_ids
+    errors.add(:base, '犬を選択してください') if dog_ids.empty?
   end
 end
