@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_05_041317) do
+ActiveRecord::Schema.define(version: 2024_08_08_040618) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 2024_08_05_041317) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.time "opening_time", null: false
+    t.time "closing_time", null: false
     t.index ["admin_id"], name: "index_dog_runs_on_admin_id"
   end
 
@@ -88,9 +90,23 @@ ActiveRecord::Schema.define(version: 2024_08_05_041317) do
     t.boolean "is_currently_staying", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "stay_schedule_id"
     t.index ["dog_id"], name: "index_stay_periods_on_dog_id"
     t.index ["dog_run_id"], name: "index_stay_periods_on_dog_run_id"
     t.index ["user_id"], name: "index_stay_periods_on_user_id"
+  end
+
+  create_table "stay_schedules", force: :cascade do |t|
+    t.integer "dog_id", null: false
+    t.integer "user_id", null: false
+    t.integer "dog_run_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dog_id"], name: "index_stay_schedules_on_dog_id"
+    t.index ["dog_run_id"], name: "index_stay_schedules_on_dog_run_id"
+    t.index ["user_id"], name: "index_stay_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,4 +130,7 @@ ActiveRecord::Schema.define(version: 2024_08_05_041317) do
   add_foreign_key "stay_periods", "dog_runs"
   add_foreign_key "stay_periods", "dogs"
   add_foreign_key "stay_periods", "users"
+  add_foreign_key "stay_schedules", "dog_runs"
+  add_foreign_key "stay_schedules", "dogs"
+  add_foreign_key "stay_schedules", "users"
 end
